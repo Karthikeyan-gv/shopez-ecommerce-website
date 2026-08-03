@@ -1,14 +1,10 @@
-import cors from 'cors'
-app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:5173"
-}))
-
 require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
-const cors = require("cors");
+const cors = require("cors"); // ONLY ONCE
+
 const authRouter = require("./routes/auth/auth-routes");
 const adminProductsRouter = require("./routes/admin/products-routes");
 const adminOrderRouter = require("./routes/admin/order-routes");
@@ -21,7 +17,7 @@ const shopReviewRouter = require("./routes/shop/review-routes");
 const commonFeatureRouter = require("./routes/common/feature-routes");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000; // Render uses 10000
 const MONGO_URL = process.env.MONGO_URL;
 
 if (!MONGO_URL) {
@@ -29,19 +25,10 @@ if (!MONGO_URL) {
   process.exit(1);
 }
 
-// Connect to MongoDB
-mongoose
-  .connect(MONGO_URL)
-  .then(() => console.log("✅ MongoDB Connected Successfully"))
-  .catch((error) => {
-    console.error("❌ MongoDB connection error:", error.message);
-    process.exit(1);
-  });
-
-// CORS configuration
+// CORS configuration - ONLY ONCE
 app.use(
   cors({
-    origin: process.env.CLIENT_BASE_URL || "http://localhost:5173",
+    origin: process.env.CLIENT_URL || "http://localhost:5173", // use CLIENT_URL from Render
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
@@ -56,6 +43,15 @@ app.use(
 
 app.use(cookieParser());
 app.use(express.json());
+
+// Connect to MongoDB
+mongoose
+  .connect(MONGO_URL)
+  .then(() => console.log("✅ MongoDB Connected Successfully"))
+  .catch((error) => {
+    console.error("❌ MongoDB connection error:", error.message);
+    process.exit(1);
+  });
 
 // Routes
 app.use("/api/auth", authRouter);
