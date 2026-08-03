@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
-const cors = require("cors"); // ONLY ONCE
+const cors = require("cors"); 
 
 const authRouter = require("./routes/auth/auth-routes");
 const adminProductsRouter = require("./routes/admin/products-routes");
@@ -17,7 +17,7 @@ const shopReviewRouter = require("./routes/shop/review-routes");
 const commonFeatureRouter = require("./routes/common/feature-routes");
 
 const app = express();
-const PORT = process.env.PORT || 10000; // Render uses 10000
+const PORT = process.env.PORT || 10000; 
 const MONGO_URL = process.env.MONGO_URL;
 
 if (!MONGO_URL) {
@@ -25,10 +25,10 @@ if (!MONGO_URL) {
   process.exit(1);
 }
 
-// CORS configuration - ONLY ONCE
+// CORS configuration
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173", // use CLIENT_URL from Render
+    origin: process.env.CLIENT_URL || "http://localhost:5173", 
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
@@ -53,7 +53,17 @@ mongoose
     process.exit(1);
   });
 
-// Routes
+// Test route
+app.get("/", (req, res) => {
+  res.json({ success: true, message: "Shopez API is running" });
+});
+
+// Health check endpoint
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ success: true, message: "Server is running" });
+});
+
+// Routes - ALL HAVE /api prefix
 app.use("/api/auth", authRouter);
 app.use("/api/admin/products", adminProductsRouter);
 app.use("/api/admin/orders", adminOrderRouter);
@@ -64,11 +74,6 @@ app.use("/api/shop/order", shopOrderRouter);
 app.use("/api/shop/search", shopSearchRouter);
 app.use("/api/shop/review", shopReviewRouter);
 app.use("/api/common/feature", commonFeatureRouter);
-
-// Health check endpoint
-app.get("/api/health", (req, res) => {
-  res.status(200).json({ success: true, message: "Server is running" });
-});
 
 // 404 handler
 app.use((req, res) => {
