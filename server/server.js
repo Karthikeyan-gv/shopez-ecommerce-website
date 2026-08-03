@@ -28,7 +28,7 @@ if (!MONGO_URL) {
 // CORS configuration
 app.use(
   cors({
-    origin: [process.env.CLIENT_URL, "https://shopez-ecommerce-website.onrender.com"], 
+    origin: [process.env.CLIENT_URL, "https://shopez-ecommerce-website.onrender.com", "http://localhost:1573"], 
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
