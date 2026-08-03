@@ -1,3 +1,8 @@
+import cors from 'cors'
+app.use(cors({
+  origin: process.env.CLIENT_URL || "http://localhost:5173"
+}))
+
 require("dotenv").config();
 
 const express = require("express");
