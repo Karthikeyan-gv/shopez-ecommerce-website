@@ -60,7 +60,9 @@ app.use(express.json());
 
 // Connect to MongoDB
 mongoose
-  .connect(MONGO_URL)
+  .connect(MONGO_URL, {
+    serverSelectionTimeoutMS: 5000,
+  })
   .then(() => console.log("✅ MongoDB Connected Successfully"))
   .catch((error) => {
     console.error("❌ MongoDB connection error:", error.message);
