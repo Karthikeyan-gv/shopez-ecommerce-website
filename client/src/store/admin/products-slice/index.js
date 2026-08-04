@@ -78,7 +78,7 @@ const AdminProductsSlice = createSlice({
         })
         .addCase(fetchAllProducts.fulfilled, (state, action) => {
           state.isLoading = false;
-          state.productList = action.payload.data;
+          state.productList = action.payload?.data || [];
         })
         .addCase(fetchAllProducts.rejected, (state) => {
           state.isLoading = false;

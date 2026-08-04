@@ -250,15 +250,21 @@ function ShoppingListing() {
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {productList.map((productItem) => (
-            <ShoppingProductTile
-              key={productItem._id}
-              handleGetProductDetails={handleGetProductDetails}
-              product={productItem}
-              handleAddtoCart={handleAddtoCart}
-              handleBuyNow={handleBuyNow}
-            />
-          ))}
+          {productList && productList.length > 0 ? (
+            productList.map((productItem) => (
+              <ShoppingProductTile
+                key={productItem._id}
+                handleGetProductDetails={handleGetProductDetails}
+                product={productItem}
+                handleAddtoCart={handleAddtoCart}
+                handleBuyNow={handleBuyNow}
+              />
+            ))
+          ) : (
+            <div className="col-span-full py-16 text-center text-slate-500 font-medium">
+              No products found.
+            </div>
+          )}
         </div>
       </div>
 
