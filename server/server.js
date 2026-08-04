@@ -19,15 +19,14 @@ const commonFeatureRouter = require("./routes/common/feature-routes");
 
 const app = express();
 const PORT = process.env.PORT || 10000; 
-const MONGO_URL = process.env.MONGO_URL;
+const MONGO_URL = process.env.MONGO_URL || process.env.MONGO_URI;
 
 // Path to the built frontend (when running as a single service)
 const clientDistPath = path.join(__dirname, "../client/dist");
 
 if (!MONGO_URL) {
-  console.error("❌ MONGO_URL is missing in environment variables!");
-  console.error("👉 Please add MONGO_URL in your Render Dashboard under 'Environment' variables.");
-  console.error("Example: MONGO_URL=mongodb+srv://<username>:<password>@cluster0.mongodb.net/shopez?retryWrites=true&w=majority");
+  console.error("❌ MONGO_URL or MONGO_URI is missing in environment variables!");
+  console.error("👉 Please add MONGO_URL (or MONGO_URI) in your Render Dashboard under Environment variables.");
   process.exit(1);
 }
 
