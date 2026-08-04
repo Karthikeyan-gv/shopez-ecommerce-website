@@ -8,16 +8,23 @@ import { Skeleton } from "../ui/skeleton";
 import { API_URL } from "@/config";
 
 
-function ProductImageUpload({imageFile,setImageFile,uploadedImageUrl, setUploadedImageUrl,setImageLoadingState,imageLoadingState,isEditMode,isCustomStyling = false,
+function ProductImageUpload({
+  imageFile,
+  setImageFile,
+  setUploadedImageUrl,
+  setImageLoadingState,
+  imageLoadingState,
+  isEditMode,
+  isCustomStyling = false,
 }) {
   const inputRef = useRef(null);
-  
 
   function handleImageFileChange(event) {
     const selectedFile = event.target.files?.[0];
 
     if (selectedFile) setImageFile(selectedFile);
   }
+
   function handleDragOver(event) {
     event.preventDefault();
   }
@@ -35,23 +42,23 @@ function ProductImageUpload({imageFile,setImageFile,uploadedImageUrl, setUploade
     }
   }
 
-  async function uploadImageToCloudinary() {
-    setImageLoadingState(true)
-    const data = new FormData();
-    data.append("my_file", imageFile);
-    const response = await axios.post(
-      `${API_URL}/api/admin/products/upload-image`,
-      data
-    );
-    if (response?.data?.success) {
+  useEffect(() => {
+    async function uploadImageToCloudinary() {
+      setImageLoadingState(true);
+      const data = new FormData();
+      data.append("my_file", imageFile);
+      const response = await axios.post(
+        `${API_URL}/api/admin/products/upload-image`,
+        data
+      );
+      if (response?.data?.success) {
         setUploadedImageUrl(response.data.result.url);
         setImageLoadingState(false);
       }
-  }
-  
-  useEffect(() => {
+    }
+
     if (imageFile !== null) uploadImageToCloudinary();
-  }, [imageFile]);
+  }, [imageFile, setImageLoadingState, setUploadedImageUrl]);
   return (
     <div className={`w-full  mt-4 ${isCustomStyling ? "" : "max-w-md mx-auto"}`}>
       <Label className="text-lg font-semibold mb-2 block">Upload Image</Label>

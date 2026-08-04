@@ -22,34 +22,35 @@ function PaymentSuccessPage() {
   }, [orderId, dispatch]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] p-6">
-      <Card className="w-full max-w-2xl p-8">
-        <CardHeader className="p-0 text-center">
+    <div className="flex flex-col items-center justify-center min-h-[70vh] p-6 max-w-4xl mx-auto w-full">
+      <Card className="w-full glass-panel rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-md">
+        <CardHeader className="p-0 text-center mb-6">
           <div className="flex justify-center mb-4">
-            <CheckCircle2 className="h-16 w-16 text-green-500" />
+            <CheckCircle2 className="h-16 w-16 text-emerald-600 animate-bounce" />
           </div>
-          <CardTitle className="text-4xl font-bold">Payment Successful!</CardTitle>
-          <p className="text-muted-foreground mt-2">
-            Thank you for your purchase. Your order has been confirmed.
+          <CardTitle className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Payment Successful!</CardTitle>
+          <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm">
+            Thank you for your purchase. Your order has been confirmed and is being processed.
           </p>
         </CardHeader>
-        <CardContent className="p-0 mt-6">
+        <CardContent className="p-0 space-y-6">
           {orderDetails ? (
             <Invoice orderDetails={orderDetails} userName={user?.userName} />
           ) : (
             <div className="text-center py-8">
-              <p className="text-muted-foreground">Loading order details...</p>
+              <p className="text-slate-500 text-sm">Loading order details...</p>
             </div>
           )}
-          <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+          <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
             <Button
-              className="bg-sky-950 text-white"
+              className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl shadow-xs"
               onClick={() => navigate("/shop/account")}
             >
-              View Orders
+              View My Orders
             </Button>
             <Button
               variant="outline"
+              className="border-slate-300 text-slate-700 dark:text-slate-200 font-bold px-6 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800"
               onClick={() => navigate("/shop/listing")}
             >
               Continue Shopping

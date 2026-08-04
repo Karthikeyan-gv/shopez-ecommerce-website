@@ -17,7 +17,10 @@ const addProductReview = async (req, res) => {
     const order = await Order.findOne({
       userId,
       "cartItems.productId": productId,
-      orderStatus: "confirmed",
+      $or: [
+        { orderStatus: { $in: ["confirmed", "delivered", "inProcess", "inShipping"] } },
+        { paymentStatus: "paid" }
+      ]
     });
 
     if (!order) {

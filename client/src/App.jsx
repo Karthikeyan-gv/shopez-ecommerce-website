@@ -36,7 +36,7 @@ function App() {
       const storedToken = sessionStorage.getItem("token");
       const token = storedToken ? JSON.parse(storedToken) : null;
       dispatch(checkAuth(token));
-    } catch (error) {
+    } catch {
       sessionStorage.removeItem("token");
       dispatch(checkAuth(null));
     }

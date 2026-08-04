@@ -84,26 +84,32 @@ function ShoppingCheckout() {
   }
 
   return (
-    <div className="flex flex-col">
-      <div className="relative h-[300px] w-full overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-purple-50/40 via-white to-purple-50/20 py-8 px-4 sm:px-8 max-w-7xl mx-auto w-full">
+      <div className="relative h-[250px] w-full overflow-hidden rounded-2xl border border-purple-100 shadow-md mb-8">
         <img src={img} className="h-full w-full object-cover object-center" />
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-950/80 via-purple-900/60 to-transparent flex items-center p-8">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Checkout Order</h1>
+        </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5  mt-5 p-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <Address selectedId={currentSelectedAddress} setCurrentSelectedAddress={setCurrentSelectedAddress} />
-        <div className="flex flex-col gap-4">
-          {cartItems && cartItems.items && cartItems.items.length > 0
-            ? cartItems.items.map((item) => (
-                <UserCartItemsContent cartItem={item} />
-              ))
-            : null}
-          <div className="mt-8 space-y-4">
-            <div className="flex justify-between">
-              <span className="font-bold">Total</span>
-              <span className="font-bold">${totalCartAmount}</span>
+        <div className="glass-panel p-6 rounded-2xl border border-purple-100/80 bg-white/80 flex flex-col justify-between shadow-sm">
+          <div>
+            <h2 className="text-xl font-extrabold text-purple-950 mb-4 pb-3 border-b border-purple-100">Order Summary</h2>
+            <div className="flex flex-col gap-3 max-h-[350px] overflow-y-auto pr-1">
+              {cartItems && cartItems.items && cartItems.items.length > 0
+                ? cartItems.items.map((item) => (
+                    <UserCartItemsContent key={item?.productId || item?._id} cartItem={item} />
+                  ))
+                : null}
             </div>
           </div>
-          <div className="mt-4 w-full">
-          <Button onClick={handleInitiatePayment} className="w-full h-10 bg-sky-950 text-white">
+          <div className="pt-6 border-t border-purple-100 mt-6 space-y-4">
+            <div className="flex justify-between items-center text-lg">
+              <span className="font-extrabold text-slate-900">Total Order Amount</span>
+              <span className="font-extrabold text-purple-700 text-2xl">${totalCartAmount}</span>
+            </div>
+            <Button onClick={handleInitiatePayment} className="w-full py-3.5 bg-purple-700 hover:bg-purple-800 text-white font-bold rounded-xl shadow-md purple-glow-sm transition-all text-sm">
               {isPaymentStart
                 ? "Processing Payment..."
                 : "Proceed to Payment"}

@@ -82,7 +82,14 @@ const capturePayment = async (req, res) => {
       if (!product) {
         return res.status(404).json({
           success: false,
-          message: `Not enough stock for this product ${product.title}`,
+          message: "Product not found!",
+        });
+      }
+
+      if (product.totalStock < item.quantity) {
+        return res.status(400).json({
+          success: false,
+          message: `Not enough stock for product ${product.title}`,
         });
       }
 
@@ -116,16 +123,9 @@ const getAllOrdersByUser = async (req, res) => {
 
     const orders = await Order.find({ userId });
 
-    if (!orders.length) {
-      return res.status(404).json({
-        success: false,
-        message: "No orders found!",
-      });
-    }
-
     res.status(200).json({
       success: true,
-      data: orders,
+      data: orders || [],
     });
   } catch (e) {
     console.log(e);

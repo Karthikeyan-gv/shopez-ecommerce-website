@@ -6,11 +6,13 @@ const getFilteredProducts = async (req, res) => {
     let filters = {};
 
     if (category.length) {
-      filters.category = { $in: category.split(",") };
+      const categoryArray = typeof category === "string" ? category.split(",") : category;
+      filters.category = { $in: categoryArray };
     }
 
     if (brand.length) {
-      filters.brand = { $in: brand.split(",") };
+      const brandArray = typeof brand === "string" ? brand.split(",") : brand;
+      filters.brand = { $in: brandArray };
     }
 
     let sort = {};

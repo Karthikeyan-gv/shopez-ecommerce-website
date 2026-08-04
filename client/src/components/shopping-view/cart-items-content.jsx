@@ -49,7 +49,7 @@ function UserCartItemsContent({ cartItem }) {
       })
     ).then((data) => {
       if (data?.payload?.success) {
-        toast("Cart item is updated successfully");
+        toast("Cart item updated successfully");
       }
     });
   }
@@ -59,57 +59,60 @@ function UserCartItemsContent({ cartItem }) {
       deleteCartItem({ userId: user?.id, productId: getCartItem?.productId })
     ).then((data) => {
       if (data?.payload?.success) {
-        toast("Cart item is deleted successfully");
+        toast("Cart item deleted successfully");
       }
     });
   }
+
   return (
-    <div className="flex items-center gap-4 py-2">
+    <div className="flex items-center gap-4 p-3 rounded-xl bg-purple-50/40 border border-purple-100/60 shadow-2xs transition-all">
       <img
         src={cartItem?.image}
         alt={cartItem?.title}
-        className="w-20 h-20 rounded object-cover"
+        className="w-16 h-16 rounded-lg object-cover border border-purple-100"
       />
 
       <div className="flex flex-col justify-between flex-1">
-        <h3 className="font-semibold text-base">{cartItem?.title}</h3>
+        <h3 className="font-bold text-slate-900 text-sm line-clamp-1">{cartItem?.title}</h3>
 
         <div className="flex items-center gap-2 mt-2">
           <Button
             disabled={cartItem?.quantity === 1}
             variant="outline"
-            className="h-8 w-8 rounded-full"
+            className="h-7 w-7 rounded-full border-purple-200 hover:bg-purple-100 text-purple-950 p-0"
             size="icon"
             onClick={() => handleUpdateQuantity(cartItem, "minus")}
           >
-            <Minus className="w-4 h-4" />
+            <Minus className="w-3 h-3 text-purple-700" />
             <span className="sr-only">Decrease</span>
           </Button>
-          <span className="font-semibold">{cartItem?.quantity}</span>
+          <span className="font-bold text-xs text-purple-950 px-1">{cartItem?.quantity}</span>
           <Button
             variant="outline"
-            className="h-8 w-8 rounded-full"
+            className="h-7 w-7 rounded-full border-purple-200 hover:bg-purple-100 text-purple-950 p-0"
             size="icon"
             onClick={() => handleUpdateQuantity(cartItem, "plus")}
           >
-            <Plus className="w-4 h-4" />
-            <span className="sr-only">Decrease</span>
+            <Plus className="w-3 h-3 text-purple-700" />
+            <span className="sr-only">Increase</span>
           </Button>
         </div>
       </div>
-      <div className="flex flex-col items-end">
-        <p className="font-semibold">
+      <div className="flex flex-col items-end gap-2">
+        <p className="font-extrabold text-sm text-purple-950">
           $
           {(
             (cartItem?.salePrice > 0 ? cartItem?.salePrice : cartItem?.price) *
             cartItem?.quantity
           ).toFixed(2)}
         </p>
-        <Trash
+        <button
           onClick={() => handleCartItemDelete(cartItem)}
-          className="cursor-pointer mt-1"
-          size={20}
-        />
+          className="text-slate-400 hover:text-red-600 transition-colors p-1 rounded-full hover:bg-red-50"
+          title="Remove Item"
+        >
+          <Trash size={16} />
+        </button>
       </div>
     </div>
   );
