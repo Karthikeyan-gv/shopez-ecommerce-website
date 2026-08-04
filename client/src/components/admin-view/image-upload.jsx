@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { Button } from "../ui/button";
 import axios from "axios";
 import { Skeleton } from "../ui/skeleton";
+import { API_URL } from "@/config";
 
 
 function ProductImageUpload({imageFile,setImageFile,uploadedImageUrl, setUploadedImageUrl,setImageLoadingState,imageLoadingState,isEditMode,isCustomStyling = false,
@@ -39,7 +40,7 @@ function ProductImageUpload({imageFile,setImageFile,uploadedImageUrl, setUploade
     const data = new FormData();
     data.append("my_file", imageFile);
     const response = await axios.post(
-      `${import.meta.env.VITE_API_URL}/api/admin/products/upload-image`,
+      `${API_URL}/api/admin/products/upload-image`,
       data
     );
     if (response?.data?.success) {

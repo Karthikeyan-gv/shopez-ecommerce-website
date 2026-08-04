@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_URL } from "@/config";
 
 
 const initialState = {
@@ -11,7 +12,7 @@ const initialState = {
     "/products/addnewproduct",
     async (formData) => {
       const result = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/admin/products/add`,
+        `${API_URL}/api/admin/products/add`,
         formData,
         {
           headers: {
@@ -29,7 +30,7 @@ const initialState = {
     "/products/fetchAllProducts",
     async () => {
       const result = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/admin/products/get`
+        `${API_URL}/api/admin/products/get`
       );
   
       return result?.data;
@@ -40,7 +41,7 @@ const initialState = {
     "/products/editProduct",
     async ({ id, formData }) => {
       const result = await axios.put(
-       `${import.meta.env.VITE_API_URL}/api/admin/products/edit/${id}`,
+       `${API_URL}/api/admin/products/edit/${id}`,
         formData,
         {
           headers: {
@@ -59,7 +60,7 @@ const initialState = {
     "/products/deleteProduct",
     async (id) => {
       const result = await axios.delete(
-       `${import.meta.env.VITE_API_URL}/api/admin/products/delete/${id}`
+       `${API_URL}/api/admin/products/delete/${id}`
       );
   
       return result?.data;
