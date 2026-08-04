@@ -25,9 +25,16 @@ const MONGO_URL = process.env.MONGO_URL || process.env.MONGO_URI;
 const clientDistPath = path.join(__dirname, "../client/dist");
 
 if (!MONGO_URL) {
-  console.error("❌ MONGO_URL or MONGO_URI is missing in environment variables!");
+  console.error("⚠️ MONGO_URL or MONGO_URI is missing in environment variables!");
   console.error("👉 Please add MONGO_URL (or MONGO_URI) in your Render Dashboard under Environment variables.");
-  process.exit(1);
+} else {
+  // Connect to MongoDB
+  mongoose
+    .connect(MONGO_URL)
+    .then(() => console.log("✅ MongoDB Connected Successfully"))
+    .catch((error) => {
+      console.error("❌ MongoDB connection error:", error.message);
+    });
 }
 
 // CORS configuration - filter out any undefined entries
@@ -42,7 +49,7 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    origin: allowedOrigins, 
+    origin: allowedOrigins,
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
@@ -57,17 +64,6 @@ app.use(
 
 app.use(cookieParser());
 app.use(express.json());
-
-// Connect to MongoDB
-mongoose
-  .connect(MONGO_URL, {
-    serverSelectionTimeoutMS: 5000,
-  })
-  .then(() => console.log("✅ MongoDB Connected Successfully"))
-  .catch((error) => {
-    console.error("❌ MongoDB connection error:", error.message);
-    process.exit(1);
-  });
 
 // Test route - serves the frontend build if present (single-service mode),
 // otherwise returns the API status JSON (two-service mode).
