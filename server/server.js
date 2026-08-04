@@ -25,7 +25,9 @@ const MONGO_URL = process.env.MONGO_URL;
 const clientDistPath = path.join(__dirname, "../client/dist");
 
 if (!MONGO_URL) {
-  console.error("❌ MONGO_URL is not defined in .env file. Exiting...");
+  console.error("❌ MONGO_URL is missing in environment variables!");
+  console.error("👉 Please add MONGO_URL in your Render Dashboard under 'Environment' variables.");
+  console.error("Example: MONGO_URL=mongodb+srv://<username>:<password>@cluster0.mongodb.net/shopez?retryWrites=true&w=majority");
   process.exit(1);
 }
 

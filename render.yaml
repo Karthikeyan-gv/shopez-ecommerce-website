@@ -1,17 +1,14 @@
 # Render Blueprint Configuration for ShopEZ E-Commerce Platform
 # Website: https://render.com
-# Usage: Connect your GitHub repository to Render and choose "New Blueprint Instance"
+# Usage: Connect your GitHub repository to Render and choose "New Blueprint Instance" or "Web Service"
 
 services:
-  # ---------------------------------------------------
-  # 1. BACKEND WEB SERVICE (Express API + MongoDB Node)
-  # ---------------------------------------------------
   - type: web
-    name: shopez-api
+    name: shopez-ecommerce
     env: node
     plan: free
-    buildCommand: cd server && npm install
-    startCommand: node server/server.js
+    buildCommand: npm install && npm run build
+    startCommand: npm start
     healthCheckPath: /api/health
     envVars:
       - key: PORT
@@ -20,34 +17,9 @@ services:
         sync: false # Set your MongoDB Atlas Connection String in Render Dashboard
       - key: JWT_SECRET
         generateValue: true # Generates a random secure key automatically
-      - key: CLIENT_BASE_URL
-        fromService:
-          type: web
-          name: shopez-storefront
-          property: url
       - key: CLOUDINARY_CLOUD_NAME
         sync: false
       - key: CLOUDINARY_API_KEY
         sync: false
       - key: CLOUDINARY_API_SECRET
         sync: false
-
-  # ---------------------------------------------------
-  # 2. FRONTEND STATIC SITE (Vite + React SPA)
-  # ---------------------------------------------------
-  - type: web
-    name: shopez-storefront
-    env: static
-    plan: free
-    buildCommand: cd client && npm install && npm run build
-    staticPublishPath: client/dist
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    envVars:
-      - key: VITE_API_URL
-        fromService:
-          type: web
-          name: shopez-api
-          property: url
