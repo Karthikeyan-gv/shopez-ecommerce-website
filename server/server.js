@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
+const path = require("path");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors"); 
@@ -20,15 +21,24 @@ const app = express();
 const PORT = process.env.PORT || 10000; 
 const MONGO_URL = process.env.MONGO_URL;
 
+// Path to the built frontend (when running as a single service)
+const clientDistPath = path.join(__dirname, "../client/dist");
+
 if (!MONGO_URL) {
   console.error("❌ MONGO_URL is not defined in .env file. Exiting...");
   process.exit(1);
 }
 
-// CORS configuration
+// CORS configuration - filter out any undefined entries
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "https://shopez-ecommerce-website.onrender.com",
+  "http://localhost:1573",
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: [process.env.CLIENT_URL, "https://shopez-ecommerce-website.onrender.com", "http://localhost:1573"], 
+    origin: allowedOrigins, 
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
@@ -53,8 +63,13 @@ mongoose
     process.exit(1);
   });
 
-// Test route
+// Test route - serves the frontend build if present (single-service mode),
+// otherwise returns the API status JSON (two-service mode).
 app.get("/", (req, res) => {
+  const indexHtml = path.join(clientDistPath, "index.html");
+  if (require("fs").existsSync(indexHtml)) {
+    return res.sendFile(indexHtml);
+  }
   res.json({ success: true, message: "Shopez API is running" });
 });
 
@@ -74,6 +89,18 @@ app.use("/api/shop/order", shopOrderRouter);
 app.use("/api/shop/search", shopSearchRouter);
 app.use("/api/shop/review", shopReviewRouter);
 app.use("/api/common/feature", commonFeatureRouter);
+
+// Serve the built frontend (single-service deployment). If the client build exists,
+// serve static assets and fall back to index.html for client-side routes (SPA).
+if (require("fs").existsSync(clientDistPath)) {
+  console.log("📦 Serving frontend build from", clientDistPath);
+  app.use(express.static(clientDistPath));
+
+  // SPA fallback: any non-API GET request that doesn't match a file gets index.html
+  app.get(/^(?!\/api|\/assets).*/, (req, res) => {
+    res.sendFile(path.join(clientDistPath, "index.html"));
+  });
+}
 
 // 404 handler
 app.use((req, res) => {
