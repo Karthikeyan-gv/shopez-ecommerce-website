@@ -61,7 +61,7 @@ const SAMPLE_PRODUCTS = [
     totalStock: 95,
   },
   {
-    image: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&q=80",
     title: "Adidas Tiro Track Pants",
     description:
       "Iconic track pants with slim tapered fit, zippered ankles, and moisture-absorbing AEROREADY technology.",
@@ -151,7 +151,7 @@ const SAMPLE_PRODUCTS = [
     totalStock: 100,
   },
   {
-    image: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=600&q=80",
     title: "Nike Women's Dri-FIT Sports Bra",
     description:
       "Medium-support sports bra with adjustable straps and moisture-wicking fabric for training sessions.",
@@ -173,7 +173,7 @@ const SAMPLE_PRODUCTS = [
     totalStock: 95,
   },
   {
-    image: "https://images.unsplash.com/photo-1583496661160-fb5886a4e7d8?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=600&q=80",
     title: "Puma Women's Essentials Joggers",
     description:
       "Soft fleece joggers with an adjustable drawstring waist and tapered leg for relaxed comfort.",
@@ -239,7 +239,7 @@ const SAMPLE_PRODUCTS = [
     totalStock: 200,
   },
   {
-    image: "https://images.unsplash.com/photo-1583496661160-fb5886a4e7d8?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1582142839970-2b93a384356c?w=600&q=80",
     title: "Zara Satin Midi Skirt",
     description:
       "Sleek satin midi skirt with a high waist and smooth flow, adding polish to any outfit.",
@@ -307,7 +307,7 @@ const SAMPLE_PRODUCTS = [
     totalStock: 90,
   },
   {
-    image: "https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=600&q=80",
     title: "Levi's Kids Denim Overall",
     description:
       "Classic kid-friendly denim overalls with adjustable straps and roomy pockets for adventure.",
@@ -463,7 +463,7 @@ const SAMPLE_PRODUCTS = [
     totalStock: 55,
   },
   {
-    image: "https://images.unsplash.com/photo-1560343090-f0409e92791a?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?w=600&q=80",
     title: "H&M Summer Sandals",
     description:
       "Comfortable everyday sandals with adjustable straps and cushioned soles for long walks.",

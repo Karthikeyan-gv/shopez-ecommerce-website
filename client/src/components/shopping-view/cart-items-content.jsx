@@ -64,11 +64,17 @@ function UserCartItemsContent({ cartItem }) {
     });
   }
 
+const DEFAULT_PRODUCT_IMAGE = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80";
+
   return (
     <div className="flex items-center gap-4 p-3 rounded-xl bg-purple-50/40 border border-purple-100/60 shadow-2xs transition-all">
       <img
-        src={cartItem?.image}
-        alt={cartItem?.title}
+        src={cartItem?.image || DEFAULT_PRODUCT_IMAGE}
+        alt={cartItem?.title || "Product"}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = DEFAULT_PRODUCT_IMAGE;
+        }}
         className="w-16 h-16 rounded-lg object-cover border border-purple-100"
       />
 

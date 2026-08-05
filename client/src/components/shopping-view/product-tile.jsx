@@ -6,6 +6,8 @@ import { Heart, Eye, Star } from "lucide-react";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
+const DEFAULT_PRODUCT_IMAGE = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80";
+
 function ShoppingProductTile({
   product,
   handleGetProductDetails,
@@ -45,9 +47,13 @@ function ShoppingProductTile({
       <div onClick={() => handleGetProductDetails(product?._id)} className="cursor-pointer">
         <div className="relative overflow-hidden bg-slate-100 dark:bg-slate-800">
           <img
-            src={product?.image}
-            alt={product?.title}
+            src={product?.image || DEFAULT_PRODUCT_IMAGE}
+            alt={product?.title || "Product"}
             loading="lazy"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = DEFAULT_PRODUCT_IMAGE;
+            }}
             className="w-full h-[260px] object-cover group-hover:scale-105 transition-transform duration-300 ease-out"
           />
 

@@ -4,6 +4,8 @@ import { Badge } from "../ui/badge";
 import { brandOptionsMap, categoryOptionsMap } from "@/config";
 import { Edit3, Trash2 } from "lucide-react";
 
+const DEFAULT_PRODUCT_IMAGE = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80";
+
 function AdminProductTile({
   product,
   setFormData,
@@ -21,9 +23,13 @@ function AdminProductTile({
       <div>
         <div className="relative overflow-hidden bg-slate-100 dark:bg-slate-800">
           <img
-            src={product?.image}
-            alt={product?.title}
+            src={product?.image || DEFAULT_PRODUCT_IMAGE}
+            alt={product?.title || "Product"}
             loading="lazy"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = DEFAULT_PRODUCT_IMAGE;
+            }}
             className="w-full h-[240px] object-cover group-hover:scale-105 transition-transform duration-300 ease-out"
           />
 
