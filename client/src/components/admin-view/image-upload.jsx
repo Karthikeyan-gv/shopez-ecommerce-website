@@ -60,15 +60,15 @@ function ProductImageUpload({
     if (imageFile !== null) uploadImageToCloudinary();
   }, [imageFile, setImageLoadingState, setUploadedImageUrl]);
   return (
-    <div className={`w-full  mt-4 ${isCustomStyling ? "" : "max-w-md mx-auto"}`}>
-      <Label className="text-lg font-semibold mb-2 block">Upload Image</Label>
+    <div className={`w-full mt-4 ${isCustomStyling ? "" : "max-w-md mx-auto"}`}>
+      <Label className="text-sm font-bold text-slate-900 dark:text-white mb-2 block">Upload Product Image</Label>
 
       <div
         onDragOver={handleDragOver}
         onDrop={handleDrop}
         className={`${
-          isEditMode ? "opacity-60" : ""
-        }  border-2 border-dashed rounded-lg p-4`}
+          isEditMode ? "opacity-60 cursor-not-allowed" : "hover:border-indigo-500 dark:hover:border-indigo-500 cursor-pointer"
+        } border-2 border-dashed border-indigo-200 dark:border-indigo-900/60 bg-indigo-50/30 dark:bg-indigo-950/20 rounded-2xl p-6 transition-all`}
       >
         <Input
           id="image-upload"
@@ -81,23 +81,26 @@ function ProductImageUpload({
         {!imageFile ? (
           <Label
             htmlFor="image-upload"
-            className={`${isEditMode ? "cursor-not-allowed" : ""} flex flex-col items-center justify-center h-32 cursor-pointer`}
+            className={`${isEditMode ? "cursor-not-allowed" : "cursor-pointer"} flex flex-col items-center justify-center h-32 text-center`}
           >
-            <UploadCloudIcon className="w-10 h-10 text-muted-foreground mb-2" />
-            <span>Drag & drop or click to upload image</span>
+            <UploadCloudIcon className="w-10 h-10 text-indigo-600 dark:text-indigo-400 mb-2 animate-bounce" />
+            <span className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200">
+              Drag & drop or click to upload image
+            </span>
+            <span className="text-[11px] text-slate-400 mt-1">PNG, JPG, WEBP up to 5MB</span>
           </Label>
         ) : imageLoadingState ? (
-          <Skeleton className="h-10 bg-gray-100" />
+          <Skeleton className="h-12 bg-slate-200 dark:bg-slate-800 rounded-xl" />
         ) : (       
-          <div className="flex items-center justify-between">
-                <div className="flex items-center">
-              <FileIcon className="w-8 text-primary mr-2 h-8" />
+          <div className="flex items-center justify-between bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
+            <div className="flex items-center gap-2 overflow-hidden">
+              <FileIcon className="w-6 h-6 text-indigo-600 dark:text-indigo-400 shrink-0" />
+              <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">{imageFile.name}</p>
             </div>
-            <p className="text-sm font-medium">{imageFile.name}</p>
             <Button
               variant="ghost"
               size="icon"
-              className="text-muted-foreground hover:text-foreground"
+              className="text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950 rounded-lg h-8 w-8 shrink-0"
               onClick={handleRemoveImage}
             >
               <XIcon className="w-4 h-4" />

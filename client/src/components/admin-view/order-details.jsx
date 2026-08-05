@@ -121,95 +121,110 @@ function AdminOrderDetailsView({ orderDetails }) {
   }
 
   return (
-    <DialogContent className="sm:max-w-[600px] bg-white text-black">
-      <div className="flex justify-end mb-2">
+    <DialogContent className="sm:max-w-[650px] bg-white dark:bg-slate-900 text-slate-900 dark:text-white border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl p-6 overflow-y-auto max-h-[90vh]">
+      <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4 mb-4">
+        <div>
+          <h2 className="text-xl font-extrabold text-slate-900 dark:text-white">Order Details</h2>
+          <p className="text-xs text-slate-500 dark:text-slate-400">Order ID: #{orderDetails?._id}</p>
+        </div>
         <Button
           size="sm"
           onClick={handleDownloadInvoice}
-          className="bg-sky-950 text-white flex items-center gap-2"
+          className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs px-4 py-2 shadow-xs transition-all hover:scale-105 flex items-center gap-2"
         >
           <Download className="h-4 w-4" /> Download Invoice
         </Button>
       </div>
+
       <div className="grid gap-6">
-        <div className="grid gap-2">
-          <div className="flex mt-6 items-center justify-between">
-            <p className="font-medium">Order ID</p>
-            <Label>{orderDetails?._id}</Label>
+        {/* Order Info Summary */}
+        <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 border border-slate-200 dark:border-slate-800 grid gap-2.5 text-sm">
+          <div className="flex items-center justify-between">
+            <span className="font-bold text-slate-600 dark:text-slate-400">Order Date</span>
+            <span className="font-semibold text-slate-900 dark:text-white">
+              {orderDetails?.orderDate
+                ? orderDetails.orderDate.split("T")[0]
+                : "N/A"}
+            </span>
           </div>
-            <div className="flex mt-2 items-center justify-between">
-              <p className="font-medium">Order Date</p>
-              <Label>
-                {orderDetails?.orderDate
-                  ? orderDetails.orderDate.split("T")[0]
-                  : "N/A"}
-              </Label>
-            </div>
-          <div className="flex mt-2 items-center justify-between">
-            <p className="font-medium">Order Price</p>
-            <Label>${orderDetails?.totalAmount}</Label>
+          <div className="flex items-center justify-between">
+            <span className="font-bold text-slate-600 dark:text-slate-400">Order Total</span>
+            <span className="font-extrabold text-indigo-600 dark:text-indigo-400 text-base">
+              ${orderDetails?.totalAmount}
+            </span>
           </div>
-          <div className="flex mt-2 items-center justify-between">
-            <p className="font-medium">Payment method</p>
-            <Label>{orderDetails?.paymentMethod}</Label>
+          <div className="flex items-center justify-between">
+            <span className="font-bold text-slate-600 dark:text-slate-400">Payment Method</span>
+            <span className="font-semibold text-slate-900 dark:text-white uppercase text-xs bg-slate-200 dark:bg-slate-700 px-2 py-0.5 rounded">
+              {orderDetails?.paymentMethod}
+            </span>
           </div>
-          <div className="flex mt-2 items-center justify-between">
-            <p className="font-medium">Payment Status</p>
-            <Label>{orderDetails?.paymentStatus}</Label>
+          <div className="flex items-center justify-between">
+            <span className="font-bold text-slate-600 dark:text-slate-400">Payment Status</span>
+            <span className="font-semibold text-slate-900 dark:text-white capitalize">
+              {orderDetails?.paymentStatus}
+            </span>
           </div>
-          <div className="flex mt-2 items-center justify-between">
-            <p className="font-medium">Order Status</p>
-            <Label>
-              <Badge
-                className={`py-1 px-3 text-white ${
-                  orderDetails?.orderStatus === "confirmed"
-                    ? "bg-green-500"
-                    : orderDetails?.orderStatus === "rejected"
-                    ? "bg-red-600"
-                    : "bg-black"
-                }`}
-              >
-                {orderDetails?.orderStatus}
-              </Badge>
-            </Label>
-          </div>
-        </div>
-        <Separator />
-        <div className="grid gap-4">
-          <div className="grid gap-2">
-            <div className="font-medium">Order Details</div>
-            <ul className="grid gap-3">
-              {orderDetails?.cartItems && orderDetails?.cartItems.length > 0
-                ? orderDetails?.cartItems.map((item) => (
-                    <li key={item.productId || item.title} className="flex items-center justify-between">
-                      <span>Title: {item.title}</span>
-                      <span>Quantity: {item.quantity}</span>
-                      <span>Price: ${item.price}</span>
-                    </li>
-                  ))
-                : null}
-            </ul>
-          </div>
-        </div>
-        <div className="grid gap-4">
-          <div className="grid gap-2">
-            <div className="font-medium">Shipping Info</div>
-            <div className="grid gap-0.5 text-muted-foreground">
-              <span>{user.userName}</span>
-              <span>{orderDetails?.addressInfo?.address}</span>
-              <span>{orderDetails?.addressInfo?.city}</span>
-              <span>{orderDetails?.addressInfo?.pincode}</span>
-              <span>{orderDetails?.addressInfo?.phone}</span>
-              <span>{orderDetails?.addressInfo?.notes}</span>
-            </div>
+          <div className="flex items-center justify-between pt-1 border-t border-slate-200 dark:border-slate-700">
+            <span className="font-bold text-slate-600 dark:text-slate-400">Order Status</span>
+            <Badge
+              className={`py-1 px-3 text-white font-extrabold text-[11px] rounded-lg shadow-xs uppercase tracking-wider ${
+                orderDetails?.orderStatus === "confirmed" || orderDetails?.orderStatus === "delivered"
+                  ? "bg-emerald-600"
+                  : orderDetails?.orderStatus === "rejected"
+                  ? "bg-rose-600"
+                  : "bg-amber-500"
+              }`}
+            >
+              {orderDetails?.orderStatus}
+            </Badge>
           </div>
         </div>
 
-        <div>
+        {/* Purchased Items List */}
+        <div className="grid gap-3">
+          <h3 className="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wider text-xs">Ordered Items</h3>
+          <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 border border-slate-200 dark:border-slate-800">
+            <ul className="grid gap-3 text-sm divide-y divide-slate-200 dark:divide-slate-700">
+              {orderDetails?.cartItems && orderDetails?.cartItems.length > 0
+                ? orderDetails?.cartItems.map((item, index) => (
+                    <li key={item.productId || item.title || index} className={`${index > 0 ? "pt-3" : ""} flex items-center justify-between`}>
+                      <div>
+                        <p className="font-bold text-slate-900 dark:text-white">{item.title}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">Qty: {item.quantity}</p>
+                      </div>
+                      <span className="font-extrabold text-slate-900 dark:text-white">
+                        ${(item.price * item.quantity).toFixed(2)}
+                      </span>
+                    </li>
+                  ))
+                : <li className="text-slate-500 text-xs">No items found</li>}
+            </ul>
+          </div>
+        </div>
+
+        {/* Shipping Address */}
+        <div className="grid gap-3">
+          <h3 className="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wider text-xs">Shipping Information</h3>
+          <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm text-slate-700 dark:text-slate-300 grid gap-1">
+            <p className="font-bold text-slate-900 dark:text-white">{user?.userName}</p>
+            <p>{orderDetails?.addressInfo?.address}</p>
+            <p>{orderDetails?.addressInfo?.city}, {orderDetails?.addressInfo?.pincode}</p>
+            <p>Phone: {orderDetails?.addressInfo?.phone}</p>
+            {orderDetails?.addressInfo?.notes && (
+              <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
+                Note: {orderDetails?.addressInfo?.notes}
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Update Status Form */}
+        <div className="border-t border-slate-200 dark:border-slate-800 pt-4">
           <CommonForm
             formControls={[
               {
-                label: "Order Status",
+                label: "Update Order Status",
                 name: "status",
                 componentType: "select",
                 options: [
