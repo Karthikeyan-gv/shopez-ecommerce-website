@@ -431,7 +431,7 @@ This project is licensed under the **MIT License**.
 
 ## 👨‍💻 Author
 
-**Karthikeyan G V**
+**Karthikeyan G**
 
 GitHub
 
