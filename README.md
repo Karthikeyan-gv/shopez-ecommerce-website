@@ -1,5 +1,6 @@
 # ShopEZ — Modern Full-Stack E-Commerce Platform
 
+Live Link: https://shopez-ecommerce-website.onrender.com
 Project Report(Drive link): https://drive.google.com/drive/folders/1oOctg48svuHSVL19nglW-GU9bB3DBacC?usp=sharing
 
 **ShopEZ** is a modern, high-performance full-stack MERN e-commerce application designed with an **Enterprise Obsidian Indigo & Glassmorphic UI**, instant cart synchronization, inline friction-free purchase workflows, and comprehensive order invoice capabilities.
