@@ -1,194 +1,438 @@
-# ShopEZ — Modern Full-Stack E-Commerce Platform
+# 🛒 ShopEZ - Full Stack MERN E-Commerce Application
 
-Live Link: https://shopez-ecommerce-website.onrender.com
-Project Report(Drive link): https://drive.google.com/drive/folders/1oOctg48svuHSVL19nglW-GU9bB3DBacC?usp=sharing
+![MERN](https://img.shields.io/badge/Stack-MERN-green)
+![React](https://img.shields.io/badge/React-18-blue)
+![Node.js](https://img.shields.io/badge/Node.js-Express-success)
+![MongoDB](https://img.shields.io/badge/Database-MongoDB-success)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
-**ShopEZ** is a modern, high-performance full-stack MERN e-commerce application designed with an **Enterprise Obsidian Indigo & Glassmorphic UI**, instant cart synchronization, inline friction-free purchase workflows, and comprehensive order invoice capabilities.
-
----
-
-## 🌟 Key Features
-
-### 🛍️ Shopping Experience
-- **Enterprise Design System**: Designed with an Ultra-Clean Slate & Obsidian Indigo color palette, featuring glassmorphic components and smooth 60FPS scroll performance.
-- **Dark / Light Mode**: Seamless theme switcher persisted across user sessions.
-- **Inline Purchase Workflow**: Unauthenticated visitors clicking *Add to Cart* or *Buy Now* are prompted with an inline auth modal, automatically resuming cart addition and redirecting to checkout upon login.
-- **Instant Wishlist**: Save favorite items locally with real-time header badges.
-- **Interactive Product Catalog**: Real-time category filtering (Men, Women, Kids, Footwear, Accessories), brand selection, price sorting, and instant search.
-- **Product Details & Reviews**: Full dialog view with star rating breakdowns, image zoom, and live customer reviews.
-
-### 💳 Checkout & Invoice System
-- **Address Manager**: Add, edit, select, and manage shipping addresses.
-- **Instant Order Checkout**: Simulated and Stripe/PayPal integration options with real-time order confirmation.
-- **Printable Invoices**: Generate and download formatted PDF invoices directly from the Order Details view or payment success screen.
-
-### 🔐 Authentication & Security
-- Secure JWT-based authentication (Login, Register, Session check).
-- Redux Toolkit state persistence with automatic token validation.
+A modern full-stack E-Commerce application built using the **MERN Stack (MongoDB, Express.js, React.js, Node.js)**. ShopEZ provides a complete online shopping experience with secure authentication, responsive UI, product management, shopping cart functionality, order processing, and an admin dashboard.
 
 ---
 
-## 🛠️ Technology Stack
+## 🔗 Live Demo
 
-| Layer | Technologies |
-| :--- | :--- |
-| **Frontend** | React 18, Vite, Redux Toolkit, Tailwind CSS, Lucide React, Radix UI Primitives, React Toastify |
-| **Backend** | Node.js, Express.js, MongoDB, Mongoose ODM |
-| **Storage & Auth** | JWT (JSON Web Tokens), Cloudinary (Image Uploads), bcryptjs |
+🌐 **Application**
+
+https://shopez-ecommerce-website.onrender.com
+
+📄 **Project Documentation**
+
+https://drive.google.com/drive/folders/1oOctg48svuHSVL19nglW-GU9bB3DBacC
 
 ---
 
-## 📁 Repository Structure
+# 📖 Table of Contents
+
+- Introduction
+- Project Overview
+- Features
+- Technology Stack
+- System Architecture
+- Project Structure
+- Installation
+- Environment Variables
+- Running the Application
+- API Endpoints
+- Authentication
+- Deployment
+- Screenshots
+- Testing
+- Future Enhancements
+- License
+
+---
+
+# 📌 Introduction
+
+## Project Title
+
+**ShopEZ - MERN E-Commerce Application**
+
+ShopEZ is a secure, scalable, and responsive full-stack e-commerce platform that enables users to browse products, search and filter items, manage shopping carts, place orders, and download invoices. Administrators can efficiently manage products, users, and customer orders through a dedicated admin dashboard.
+
+---
+
+# 🎯 Project Objectives
+
+- Build a complete MERN Stack application.
+- Implement secure JWT authentication.
+- Provide a responsive shopping experience.
+- Simplify product and order management.
+- Deliver a modern and intuitive user interface.
+- Follow REST API architecture and best development practices.
+
+---
+
+# ✨ Features
+
+## Customer Features
+
+- User Registration
+- Secure Login (JWT Authentication)
+- User Profile Management
+- Browse Products
+- Search Products
+- Category Filtering
+- Brand Filtering
+- Product Sorting
+- Product Details
+- Shopping Cart
+- Wishlist
+- Address Management
+- Checkout Process
+- Order Placement
+- Order History
+- Download PDF Invoice
+- Dark / Light Theme
+- Responsive Design
+
+---
+
+## Admin Features
+
+- Admin Dashboard
+- Product Management
+- Category Management
+- User Management
+- Order Management
+- Protected Admin Routes
+
+---
+
+## Security Features
+
+- JWT Authentication
+- Password Encryption using bcrypt
+- Protected Routes
+- Token Validation
+- Role-Based Authorization
+
+---
+
+# 🛠 Technology Stack
+
+## Frontend
+
+- React 18
+- Vite
+- React Router DOM
+- Redux Toolkit
+- Axios
+- Tailwind CSS
+- React Toastify
+- Lucide React
+- Radix UI
+
+---
+
+## Backend
+
+- Node.js
+- Express.js
+- REST API
+- JWT Authentication
+- bcryptjs
+- Cloudinary
+
+---
+
+## Database
+
+- MongoDB Atlas
+- Mongoose ODM
+
+---
+
+# 🏗 System Architecture
 
 ```
-ShopEz-Ecommerce-Website-main/
-├── client/                      # Vite + React Frontend
-│   ├── src/
-│   │   ├── components/          # Reusable UI & Shopping Components
-│   │   │   ├── admin-view/      # Admin Dashboard Components
-│   │   │   ├── common/         # Auth Modal, Forms, CheckAuth, Star Ratings
-│   │   │   ├── shopping-view/  # Header, Footer, Tiles, Order Details, Invoice
-│   │   │   └── ui/             # Radix UI Primitives (Button, Dialog, Sheet, etc.)
-│   │   ├── pages/               # Application Pages (Home, Listing, Search, Account, Auth)
-│   │   ├── store/               # Redux Slices (Auth, Cart, Products, Orders, Address)
-│   │   └── index.css            # Enterprise CSS Design System & Utility Classes
+React + Vite
+       │
+       │ Axios API Calls
+       ▼
+Express REST API
+       │
+JWT Authentication
+       │
+Mongoose ODM
+       │
+MongoDB Atlas
+```
+
+---
+
+# 📂 Project Structure
+
+```
+ShopEZ-Ecommerce-Website
+│
+├── client
+│   ├── src
+│   │   ├── components
+│   │   ├── pages
+│   │   ├── store
+│   │   ├── hooks
+│   │   ├── layouts
+│   │   ├── utils
+│   │   ├── assets
+│   │   ├── App.jsx
+│   │   └── main.jsx
 │   └── package.json
-└── server/                      # Express REST API Backend
-    ├── controllers/             # Auth, Product, Cart, Order & Address Controllers
-    ├── models/                  # Mongoose Schemas (User, Product, Cart, Order, Address)
-    ├── routes/                  # Express API Routes
-    ├── helpers/                 # Cloudinary Utilities
-    ├── server.js                # Server Entry Point
-    └── package.json
+│
+├── server
+│   ├── controllers
+│   ├── middleware
+│   ├── models
+│   ├── routes
+│   ├── helpers
+│   ├── uploads
+│   ├── server.js
+│   └── package.json
+│
+└── README.md
 ```
 
 ---
 
-## 🚀 Quick Start & Installation Guide
+# ⚙ Installation
 
-### Prerequisites
-- [Node.js](https://nodejs.org/) (v18.0 or higher recommended)
-- [MongoDB](https://www.mongodb.com/) (Local instance or MongoDB Atlas Connection URI)
+## Prerequisites
+
+- Node.js (v18+ Recommended)
+- npm
+- MongoDB Atlas Account
+- Git
 
 ---
 
-### 1. Clone & Setup Environment
+## Clone Repository
 
 ```bash
-# Clone the repository
 git clone https://github.com/Karthikeyan-gv/shopez-ecommerce-website.git
-cd ShopEz-Ecommerce-Website-main
+
+cd shopez-ecommerce-website
 ```
 
 ---
 
-### 2. Configure Backend (`server`)
-
-Create a `.env` file inside the `server/` directory:
-
-```env
-PORT=5000
-MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/shopez?retryWrites=true&w=majority
-CLIENT_BASE_URL=http://localhost:5173
-JWT_SECRET=YOUR_SUPER_SECRET_JWT_KEY
-CLOUDINARY_CLOUD_NAME=YOUR_CLOUDINARY_NAME
-CLOUDINARY_API_KEY=YOUR_CLOUDINARY_API_KEY
-CLOUDINARY_API_SECRET=YOUR_CLOUDINARY_API_SECRET
-```
-
-Install backend dependencies and start the API server:
+## Backend Setup
 
 ```bash
 cd server
+
 npm install
-npm start
-# Server runs on http://localhost:5000
 ```
 
----
+Create a **.env**
 
-### 3. Configure Frontend (`client`)
+```env
+PORT=5000
 
-Install frontend dependencies and start the Vite development server:
+MONGO_URI=YOUR_MONGODB_URI
+
+JWT_SECRET=YOUR_SECRET_KEY
+
+CLIENT_BASE_URL=http://localhost:5173
+
+CLOUDINARY_CLOUD_NAME=
+
+CLOUDINARY_API_KEY=
+
+CLOUDINARY_API_SECRET=
+```
+
+Start backend
 
 ```bash
-cd ../client
-npm install
-npm run dev
-# App opens on http://localhost:5173
+npm start
+```
+
+Backend runs at
+
+```
+http://localhost:5000
 ```
 
 ---
 
-## 🔌 Primary API Endpoints
+## Frontend Setup
 
-### 🔐 Auth Routes (`/api/auth`)
-- `POST /api/auth/register` — Create a new user account
-- `POST /api/auth/login` — Authenticate user and issue JWT token
-- `GET /api/auth/check-auth` — Verify session status with Bearer token
-- `POST /api/auth/logout` — Clear session token
+```bash
+cd client
 
-### 🛍️ Shop Product Routes (`/api/shop/products`)
-- `GET /api/shop/products/get` — Fetch product catalog with category/brand filters & sorting
-- `GET /api/shop/products/get/:id` — Fetch detailed product information
+npm install
 
-### 🛒 Cart Routes (`/api/shop/cart`)
-- `POST /api/shop/cart/add` — Add item to user cart
-- `GET /api/shop/cart/get/:userId` — Fetch active cart contents
-- `PUT /api/shop/cart/update-cart` — Update item quantity
-- `DELETE /api/shop/cart/delete/:userId/:productId` — Remove item from cart
+npm run dev
+```
 
-### 📦 Order Routes (`/api/shop/order`)
-- `POST /api/shop/order/create` — Place a new order
-- `GET /api/shop/order/list/:userId` — Fetch customer order history
-- `GET /api/shop/order/details/:id` — Fetch specific order invoice details
+Frontend runs at
+
+```
+http://localhost:5173
+```
 
 ---
 
-## 🌐 Render Deployment Settings & Setup Guide
+# 🔐 Authentication
 
-This project is configured with a **`render.yaml` Blueprint file** for zero-friction deployment on [Render.com](https://render.com).
+Authentication is implemented using **JSON Web Tokens (JWT).**
 
-### Method 1: Automatic Blueprint Deployment (Recommended)
+Authentication Flow
 
-1. **Push Code to GitHub**: Ensure your code is pushed to your GitHub repository.
-2. **Log into Render**: Go to [dashboard.render.com](https://dashboard.render.com/) and click **New +** -> **Blueprints**.
-3. **Connect Repository**: Select your GitHub repository (`Karthikeyan-gv/shopez-ecommerce-website`).
-4. **Set Environment Variables**:
-   - `MONGO_URL`: Your MongoDB Atlas Connection String (`mongodb+srv://...`).
-   - `CLOUDINARY_CLOUD_NAME`: Cloudinary Name.
-   - `CLOUDINARY_API_KEY`: Cloudinary API Key.
-   - `CLOUDINARY_API_SECRET`: Cloudinary API Secret.
-5. **Click Apply**: Render will automatically build and deploy both the API Web Service (`shopez-api`) and Frontend Static Site (`shopez-storefront`).
+1. User Registration
+2. Password Hashing using bcrypt
+3. User Login
+4. JWT Token Generation
+5. Token Storage
+6. Protected Route Verification
+7. Authorization Middleware
+8. Role-Based Access Control
 
----
+Roles
 
-### Method 2: Manual Dashboard Configuration
-
-#### A. Backend Web Service (`shopez-api`)
-- **Environment**: Node
-- **Build Command**: `cd server && npm install`
-- **Start Command**: `node server/server.js`
-- **Health Check Path**: `/api/health`
-- **Environment Variables**:
-  - `PORT`: `10000`
-  - `MONGO_URL`: `<your-mongodb-atlas-url>`
-  - `JWT_SECRET`: `<your-jwt-secret>`
-  - `CLIENT_BASE_URL`: `https://shopez-storefront.onrender.com` (Your Render Frontend URL)
-
-#### B. Frontend Static Site (`shopez-storefront`)
-- **Environment**: Static Site
-- **Build Command**: `cd client && npm install && npm run build`
-- **Publish Directory**: `client/dist`
-- **Rewrite Rules** (Single Page App routing):
-  - **Source**: `/*`
-  - **Destination**: `/index.html`
-  - **Action**: Rewrite
-- **Environment Variables**:
-  - `VITE_API_URL`: `https://shopez-api.onrender.com` (Your Render API URL)
+- Customer
+- Administrator
 
 ---
 
-## 📄 License
+# 🌐 API Endpoints
 
-This project is open-source and available under the [MIT License](LICENSE).
+## Authentication
+
+| Method | Endpoint | Description |
+|----------|-----------------------------|-------------------------|
+| POST | /api/auth/register | Register User |
+| POST | /api/auth/login | Login User |
+| GET | /api/auth/check-auth | Validate JWT |
+| POST | /api/auth/logout | Logout |
+
+---
+
+## Products
+
+| Method | Endpoint |
+|----------|---------------------------|
+| GET | /api/shop/products/get |
+| GET | /api/shop/products/get/:id |
+
+---
+
+## Cart
+
+| Method | Endpoint |
+|----------|------------------------------|
+| POST | /api/shop/cart/add |
+| GET | /api/shop/cart/get/:userId |
+| PUT | /api/shop/cart/update-cart |
+| DELETE | /api/shop/cart/delete/:userId/:productId |
+
+---
+
+## Orders
+
+| Method | Endpoint |
+|----------|------------------------------|
+| POST | /api/shop/order/create |
+| GET | /api/shop/order/list/:userId |
+| GET | /api/shop/order/details/:id |
+
+---
+
+# 🚀 Deployment
+
+The project is deployed on **Render**.
+
+## Backend
+
+- Node Environment
+- Express Server
+- MongoDB Atlas
+- Cloudinary
+
+## Frontend
+
+- Static Site
+- React + Vite
+
+---
+
+# 🧪 Testing
+
+Testing Performed
+
+- Functional Testing
+- API Testing
+- Authentication Testing
+- UI Testing
+- Integration Testing
+- Manual Testing
+
+Tools
+
+- Postman
+- MongoDB Atlas
+- Visual Studio Code
+- Google Chrome
+
+---
+
+# 📸 Screenshots
+
+Add screenshots here.
+
+Example
+
+```
+screenshots/
+│
+├── Home.png
+├── Login.png
+├── Product.png
+├── Cart.png
+├── Checkout.png
+├── Orders.png
+├── AdminDashboard.png
+```
+
+---
+
+# 🚀 Future Enhancements
+
+- AI Product Recommendation
+- Inventory Analytics
+- Mobile Application
+- Multi-language Support
+- Social Login
+- Live Order Tracking
+- Sales Dashboard
+- Multi-vendor Marketplace
+- Payment Gateway Enhancements
+
+---
+
+# 📄 Project Report
+
+https://drive.google.com/drive/folders/1oOctg48svuHSVL19nglW-GU9bB3DBacC
+
+---
+
+# 💻 GitHub Repository
+
+https://github.com/Karthikeyan-gv/shopez-ecommerce-website
+
+---
+
+# 📄 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+## 👨‍💻 Author
+
+**Karthikeyan G V**
+
+GitHub
+
+https://github.com/Karthikeyan-gv
